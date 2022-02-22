@@ -1,8 +1,9 @@
 import { Router } from 'express';
+import rescue from 'express-rescue';
 import User from '../controllers/users';
 
 const router = Router();
 
-router.post('/', User.create);
+router.post('/', rescue(User.validateUser), rescue(User.create));
 
 export default router;
