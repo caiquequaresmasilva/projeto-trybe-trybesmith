@@ -1,6 +1,24 @@
-import UserModel from '../models/User';
+import { sign } from 'jsonwebtoken';
+import User from '../models/User';
 import { IUser } from '../interfaces/User';
+import { Token, Payload } from '../interfaces/Token';
 
-const { JWT_SECRET = 'papibaquigrafo'} = process.env
+const { JWT_SECRET = 'papibaquigrafo' } = process.env;
 
-const create = async (user: IUser)
+const generateToken = (payload: Payload): string => sign(payload, JWT_SECRET, {
+  algorithm: 'HS256',
+  expiresIn: '1d',
+});
+
+const create = async (user: IUser) : Promise<Token> => {
+  const newUser = await User.create(user);
+  const { id, username } = newUser;
+
+  const token = generateToken({ id, username });
+
+  return { token };
+};
+
+export default {
+  create,
+};
