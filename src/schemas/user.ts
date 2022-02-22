@@ -13,7 +13,7 @@ export default Joi.object({
   }),
   level: Joi.number().integer().min(1).required()
     .messages({
-      'string.min': 'Level must be greater than 0',
+      'number.min': 'Level must be greater than 0',
       'number.base': 'Level must be a number',
       'any.required': 'Level is required',
     }),
