@@ -172,7 +172,7 @@ describe("1 - Crie um endpoint para o cadastro de pessoas usuárias", () => {
 
 
 
-  it.only('Será validado que é possível cadastrar a pessoa usuária com sucesso', async () => {
+  it('Será validado que é possível cadastrar a pessoa usuária com sucesso', async () => {
     const result = await request(app).post("/users").send({
       username: "catiau",
       password: "senha1234",
