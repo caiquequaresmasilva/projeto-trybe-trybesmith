@@ -17,8 +17,15 @@ const create = async (req:RequestWithUserId, res:Response) => {
   res.status(StatusCode.CREATED).json(newOrder);
 };
 
+const getOrder = async (req:RequestWithUserId, res:Response, next:NextFunction) => {
+  const { id } = req.params;
+  const order = await Order.getOrder(parseInt(id, 10));
+  if (order.error) return next(order);
+  res.status(StatusCode.OK).json(order);
+};
+
 export default {
   validateOrder,
   create,
-
+  getOrder,
 };
