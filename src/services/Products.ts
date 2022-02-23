@@ -13,7 +13,10 @@ const create = async (product: IProduct) : Promise<IResponseProd> => {
   return { item: newProd };
 };
 
+const getAll = async () : Promise<INewProduct[]> => Product.getAll();
+
 export default {
   create,
   validateProd,
+  getAll,
 };
