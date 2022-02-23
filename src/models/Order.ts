@@ -28,8 +28,14 @@ const getOrderProducts = async (orderId: number) => {
   return product as ProdId[];
 };
 
+const getAllOrders = async () : Promise<ProdId[]> => {
+  const [orders] = await connection.execute('SELECT id FROM Trybesmith.Orders');
+  return orders as ProdId[];
+};
+
 export default {
   create,
   getOrderUser,
   getOrderProducts,
+  getAllOrders,
 };

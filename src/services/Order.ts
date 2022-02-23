@@ -1,7 +1,7 @@
 import Order from '../models/Order';
 import Product from '../models/Product';
 import orderSchema from '../schemas/orderSchema';
-import { INewOrder, IOrder, IResponseOrder } from '../interfaces/Order'; 
+import { INewOrder, INewOrderId, IOrder, IResponseOrder } from '../interfaces/Order'; 
 import StatusCode from '../enums/StatusCode';
 
 const validateOrder = (order: IOrder) => {
@@ -29,8 +29,15 @@ const getOrder = async (id: number) => {
   };
 };
 
+const getAll = async () : Promise<INewOrderId[]> => {
+  const ordersIds = await Order.getAllOrders();
+  const orders = await Promise.all(ordersIds.map(({ id }) => getOrder(id)));
+  return orders as INewOrderId[];
+};
+
 export default {
   create,
   validateOrder,
   getOrder,
+  getAll,
 };

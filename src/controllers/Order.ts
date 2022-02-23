@@ -24,8 +24,14 @@ const getOrder = async (req:RequestWithUserId, res:Response, next:NextFunction) 
   res.status(StatusCode.OK).json(order);
 };
 
+const getAll = async (_req:RequestWithUserId, res:Response) => {
+  const orders = await Order.getAll();
+  res.status(StatusCode.OK).json(orders);
+};
+
 export default {
   validateOrder,
   create,
   getOrder,
+  getAll,
 };

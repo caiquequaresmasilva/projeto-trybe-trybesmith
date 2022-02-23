@@ -5,6 +5,7 @@ import Order from '../controllers/Order';
 const router = Router();
 
 router.post('/', rescue(Order.validateOrder), rescue(Order.create));
+router.get('/', rescue(Order.getAll));
 router.get('/:id', rescue(Order.getOrder));
 
 export default router;
