@@ -1,10 +1,9 @@
 import { Router } from 'express';
 import rescue from 'express-rescue';
-import Product from '../controllers/Product';
+import Order from '../controllers/Order';
 
 const router = Router();
 
-router.post('/', rescue(Product.validateProd), rescue(Product.create));
-router.get('/', rescue(Product.getAll));
+router.post('/', rescue(Order.validateOrder), rescue(Order.create));
 
 export default router;
