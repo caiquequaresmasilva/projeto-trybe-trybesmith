@@ -21,8 +21,9 @@ const validateLogin = (user: ILogin) => {
 const authValidation = (token:string | undefined) => {
   if (!token) return { code: StatusCode.UNAUTHORIZED, message: 'Token not found', error: true };
   try {
-    verify(token, JWT_SECRET);
-    return { error: false };
+    const user = verify(token, JWT_SECRET);
+    // FONTE:https://stackoverflow.com/questions/50735675/typescript-jwt-verify-cannot-access-data
+    return { id: (<any>user).id };
   } catch (_) {
     return { code: StatusCode.UNAUTHORIZED, message: 'Invalid token', error: true };
   }
