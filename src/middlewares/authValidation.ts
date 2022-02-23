@@ -1,9 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import User from '../services/User';
-
-interface RequestWithUserId extends Request{
-  userId?: number
-} 
+import RequestWithUserId from '../interfaces/Request';
 
 export default async (req:RequestWithUserId, _res:Response, next:NextFunction) => {
   const { method, originalUrl } = req;

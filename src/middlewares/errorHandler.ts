@@ -9,7 +9,7 @@ export default (error: any, req: Request, res: Response, _next: NextFunction) =>
     return res.status(status).json({ error: error.details[0].message });  
   }
     
-  status = error.code || 500;
+  status = typeof error.code === 'number' ? error.code : 500;
     
   res.status(status).json({ error: error.message });
 };

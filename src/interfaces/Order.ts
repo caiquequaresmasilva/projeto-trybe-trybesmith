@@ -3,7 +3,7 @@ export interface IOrder {
 }
   
 export interface INewOrder extends IOrder{
-  userId: number,
+  userId: number | undefined,
 }
 export interface INewOrderId extends INewOrder{
   id: number
