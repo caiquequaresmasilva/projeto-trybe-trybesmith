@@ -1,7 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
+import { ValidationError } from 'joi';
 import JoiStatusCode from '../schemas/JoiStatusCode';
 
-export default (error: any, req: Request, res: Response, _next: NextFunction) => {
+interface GeneralizedErros extends ValidationError{
+  code?: number
+}
+
+export default (error: GeneralizedErros, req: Request, res: Response, _next: NextFunction) => {
   let status: number;
   if (error.isJoi) {
     const type: string = error.details[0].type.split('.')[1];

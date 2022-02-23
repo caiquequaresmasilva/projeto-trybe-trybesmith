@@ -1,4 +1,4 @@
-import { sign, verify } from 'jsonwebtoken';
+import { JwtPayload, sign, verify } from 'jsonwebtoken';
 import User from '../models/User';
 import { IUser, ILogin } from '../interfaces/User';
 import { Token, Payload } from '../interfaces/Token';
@@ -23,7 +23,7 @@ const authValidation = (token:string | undefined) => {
   try {
     const user = verify(token, JWT_SECRET);
     // FONTE:https://stackoverflow.com/questions/50735675/typescript-jwt-verify-cannot-access-data
-    return { id: (<any>user).id };
+    return { id: (<JwtPayload>user).id };
   } catch (_) {
     return { code: StatusCode.UNAUTHORIZED, message: 'Invalid token', error: true };
   }
