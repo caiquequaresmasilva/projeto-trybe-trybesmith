@@ -1,13 +1,20 @@
 import { sign } from 'jsonwebtoken';
 import User from '../models/User';
-import { IUser } from '../interfaces/User';
+import { IUser, ILogin } from '../interfaces/User';
 import { Token, Payload } from '../interfaces/Token';
 import userSchema from '../schemas/userSchema';
+import loginSchema from '../schemas/loginSchema';
+import StatusCode from '../enums/StatusCode';
 
 const { JWT_SECRET = 'papibaquigrafo' } = process.env;
 
 const validateUser = (user: IUser) => {
   const validation = userSchema.validate(user);
+  return validation;
+};
+
+const validateLogin = (user: ILogin) => {
+  const validation = loginSchema.validate(user);
   return validation;
 };
 
@@ -25,7 +32,18 @@ const create = async (user: IUser) : Promise<Token> => {
   return { token };
 };
 
+const login = async (user:ILogin) => {
+  const checkUser = await User.findByUsername(user.username);
+  if (!checkUser || checkUser.password !== user.password) { 
+    return { code: StatusCode.UNAUTHORIZED, message: 'Username or password invalid', error: true }; 
+  }
+  const token = generateToken({ id: checkUser.id, username: checkUser.username });
+  return { token };
+};
+
 export default {
   create,
   validateUser,
+  validateLogin,
+  login,
 };

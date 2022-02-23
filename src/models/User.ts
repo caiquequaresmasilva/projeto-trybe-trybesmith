@@ -12,6 +12,16 @@ const create = async (user: IUser): Promise<INewUser> => {
   return createdUser;
 };
 
+const findByUsername = async (username: string): Promise<INewUser> => {
+  const [user] = await connection.execute(
+    'SELECT * FROM Trybesmith.Users WHERE username=?',
+    [username],
+  );
+  const [row] = user as INewUser[];
+  return row;
+};
+
 export default {
   create,
+  findByUsername,
 };
