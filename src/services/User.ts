@@ -1,4 +1,4 @@
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import User from '../models/User';
 import { IUser, ILogin } from '../interfaces/User';
 import { Token, Payload } from '../interfaces/Token';
@@ -16,6 +16,16 @@ const validateUser = (user: IUser) => {
 const validateLogin = (user: ILogin) => {
   const validation = loginSchema.validate(user);
   return validation;
+};
+
+const authValidation = (token:string | undefined) => {
+  if (!token) return { code: StatusCode.UNAUTHORIZED, message: 'Token not found', error: true };
+  try {
+    verify(token, JWT_SECRET);
+    return { error: false };
+  } catch (_) {
+    return { code: StatusCode.UNAUTHORIZED, message: 'Invalid token', error: true };
+  }
 };
 
 const generateToken = (payload: Payload): string => sign(payload, JWT_SECRET, {
@@ -45,5 +55,6 @@ export default {
   create,
   validateUser,
   validateLogin,
+  authValidation,
   login,
 };
