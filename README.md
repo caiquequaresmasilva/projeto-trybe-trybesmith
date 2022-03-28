@@ -15,7 +15,7 @@ O objetivo do projeto foi desenvolver uma API que faça **CRUD (Create, Read, Up
 
 * Clone o repositório:
 ```bash
-git git@github.com:caiquequaresmasilva/projeto-trybe-trybesmith.git
+git clone git@github.com:caiquequaresmasilva/projeto-trybe-trybesmith.git
 ``` 
 
 * Entre na pasta do repositório clonado e instale as dependências:
