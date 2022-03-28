@@ -29,7 +29,7 @@ npm install
 ## Executando a aplicação
 
 
-Para rodar a API, é necessário configurar as variáveis de ambiente no arquivo `src/.env`
+Para rodar a API, é necessário configurar as variáveis de ambiente no arquivo `.env`
 
 ```
 MYSQL_HOST=dbhost # Host do banco de dados
